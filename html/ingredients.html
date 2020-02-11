@@ -45,16 +45,19 @@
               <th>ID</th>
               <th>Name</th>
               <th>Origin</th>
+              <th>Delete</th>
             </tr>
             <tr>
-              <td><a href="">1</td>
-              <td><a href="">Coffee</td>
-              <td><a href="">Ethiopia</td>
+              <td>1</td>
+              <td>Coffee</td>
+              <td>Ethiopia</td>
+              <td><input type="button" id="deleteIngredient" class="deleteButton" value="Delete" onclick="deleteRow(this)"/></td>
             </tr>
             <tr>
-              <td><a href="">2</td>
-              <td><a href="">Shiitake Mushroom</td>
-              <td><a href="">Japan</td>
+              <td>2</td>
+              <td>Shiitake Mushroom</td>
+              <td>Japan</td>
+              <td><input type="button" id="deleteIngredient" class="deleteButton" value="Delete" onclick="deleteRow(this)"/></td>
             </tr>
         </table>
         <button type="button" id="newIngredient" class="newRowbutton">New Ingredient</button>
@@ -70,6 +73,7 @@
         Name: <input type="text" id="nameField">
         Origin: <input type="text" id="originField">
         <button type="button" id="newRow" class="newRowbutton">Submit</button>
+        <button type="button" id="editIngredient" class="newRowbutton">Edit Ingredient</button>
       </div>
 
     </div>
@@ -102,6 +106,12 @@
       cell3.innerHTML = document.getElementById("originField").value;
       modal.style.display = "none";
     }
+
+    function deleteRow(btn) {
+      var row = btn.parentNode.parentNode;
+      row.parentNode.removeChild(row);
+    }
+
 
     window.onclick = function(event) {
       if (event.target == modal) {

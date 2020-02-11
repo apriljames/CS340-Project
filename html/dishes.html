@@ -46,21 +46,25 @@
               <th>Name</th>
               <th>Cost</th>
               <th>Description</th>
+              <th>Delete</th>
             </tr>
             <tr>
-              <td><a href="">1</td>
-              <td><a href="">Kung Pao Chicken</td>
-              <td><a href="">10</td>
-              <td><a href="">A delicious combination of stir fried veggies and chicken topped with peanuts.</td>
+              <td>1</td>
+              <td>Kung Pao Chicken</td>
+              <td>10</td>
+              <td>A delicious combination of stir fried veggies and chicken topped with peanuts.</td>
+              <td><input type="button" id="deleteDish" class="deleteButton" value="Delete" onclick="deleteRow(this)"/></td>
             </tr>
             <tr>
-              <td><a href="">2</td>
-              <td><a href="">Chicken Nuggets</td>
-              <td><a href="">4</td>
-              <td><a href="">This is exactly what it sounds like.</td>
+              <td>2</td>
+              <td>Chicken Nuggets</td>
+              <td>4</td>
+              <td>This is exactly what it sounds like.</td>
+              <td><input type="button" id="deleteDish" class="deleteButton" value="Delete" onclick="deleteRow(this)"/></td>
             </tr>
         </table>
         <button type="button" id="newDish" class="newRowbutton">New Dish</button>
+        <button type="button" id="editDish" class="newRowbutton">Edit Dish</button>
       </div>
     </main>
 
@@ -108,6 +112,12 @@
       cell4.innerHTML = document.getElementById("descriptionField").value;
       modal.style.display = "none";
     }
+
+    function deleteRow(btn) {
+      var row = btn.parentNode.parentNode;
+      row.parentNode.removeChild(row);
+    }
+
 
     window.onclick = function(event) {
       if (event.target == modal) {
