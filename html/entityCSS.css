@@ -42,7 +42,7 @@ tr:nth-child(odd) {
   background-color: #A38B5F;
 }
 
-.newRowbutton {
+.newRowbutton, .deleteButton {
   background-color: #679c5f;
   border: none;
   color: #fff;

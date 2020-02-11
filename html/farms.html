@@ -45,19 +45,23 @@
               <th>ID</th>
               <th>Name</th>
               <th>Location</th>
+              <th>Delete</th>
             </tr>
             <tr>
-              <td><a href="">1</td>
-              <td><a href="">Animal Farm</td>
-              <td><a href="">Willingdon</td>
+              <td>1</td>
+              <td>Animal Farm</td>
+              <td>Willingdon</td>
+              <td><input type="button" id="deleteFarm" class="deleteButton" value="Delete" onclick="deleteRow(this)"/></td>
             </tr>
             <tr>
-              <td><a href="">2</td>
-              <td><a href="">Veggie Farm</td>
-              <td><a href="">Corvallis</td>
+              <td>2</td>
+              <td>Veggie Farm</td>
+              <td>Corvallis</td>
+              <td><input type="button" id="deleteFarm" class="deleteButton" value="Delete" onclick="deleteRow(this)"/></td>
             </tr>
         </table>
         <button type="button" id="newFarm" class="newRowbutton">New Farm</button>
+        <button type="button" id="editFarm" class="newRowbutton">Edit Farm</button>
       </div>
     </main>
 
@@ -102,6 +106,12 @@
       cell3.innerHTML = document.getElementById("locationField").value;
       modal.style.display = "none";
     }
+
+    function deleteRow(btn) {
+      var row = btn.parentNode.parentNode;
+      row.parentNode.removeChild(row);
+    }
+
 
     window.onclick = function(event) {
       if (event.target == modal) {
