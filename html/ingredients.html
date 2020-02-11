@@ -27,9 +27,9 @@
       <nav class="navbar">
         <ul class="navlist">
           <li class="navitem navlink"><a href="index.html">Home</a></li>
-          <li class="navitem navlink active"><a href="chefs.html">Chefs</a></li>
+          <li class="navitem navlink"><a href="chefs.html">Chefs</a></li>
           <li class="navitem navlink"><a href="dishes.html">Dishes</a></li>
-          <li class="navitem navlink"><a href="ingredients.html">Ingredients</a></li>
+          <li class="navitem navlink active"><a href="ingredients.html">Ingredients</a></li>
           <li class="navitem navlink"><a href="farms.html">Farms</a></li>
         </ul>
       </nav>
@@ -38,29 +38,26 @@
     <main>
 
       <div class ="ResultsTableDiv">
-        <h1>Chefs</</h1>
+        <h1>Ingredients</</h1>
         <hr>
-        <table id="chefsTable">
+        <table id="ingredientsTable">
             <tr>
               <th>ID</th>
-              <th>First Name</th>
-              <th>Last Name</th>
-              <th>Dish</th>
+              <th>Name</th>
+              <th>Origin</th>
             </tr>
             <tr>
               <td><a href="">1</td>
-              <td><a href="">Anne</td>
-              <td><a href="">Example</td>
-              <td><a href="">Pizza</td>
+              <td><a href="">Coffee</td>
+              <td><a href="">Ethiopia</td>
             </tr>
             <tr>
               <td><a href="">2</td>
-              <td><a href="">John</td>
-              <td><a href="">Doe</td>
-              <td><a href="">Tacos</td>
+              <td><a href="">Shiitake Mushroom</td>
+              <td><a href="">Japan</td>
             </tr>
         </table>
-        <button type="button" id="newChef" class="newRowbutton">New Chef</button>
+        <button type="button" id="newIngredient" class="newRowbutton">New Ingredient</button>
       </div>
     </main>
 
@@ -68,11 +65,10 @@
 
       <div class="modal-content">
         <span class="close">&times;</span>
-        <h1>New Chef</h1>
+        <h1>New Ingredient</h1>
         <hr>
-        First Name: <input type="text" id="fnField">
-        Last Name: <input type="text" id="lnField">
-        Dish: <input type="text" id="dishField">
+        Name: <input type="text" id="nameField">
+        Origin: <input type="text" id="originField">
         <button type="button" id="newRow" class="newRowbutton">Submit</button>
       </div>
 
@@ -82,12 +78,12 @@
 
   <script>
     var modal = document.getElementById("newRowModal");
-    var newChefBtn = document.getElementById("newChef");
+    var newIngredientBtn = document.getElementById("newIngredient");
     var submitRowBtn = document.getElementById("newRow");
     var span = document.getElementsByClassName("close")[0];
     var id = 2;
 
-    newChefBtn.onclick = function() {
+    newIngredientBtn.onclick = function() {
       modal.style.display = "block";
     }
 
@@ -96,16 +92,14 @@
     }
 
     submitRowBtn.onclick = function(){
-      var table = document.getElementById("chefsTable");
+      var table = document.getElementById("ingredientsTable");
       var row = table.insertRow(++id);
       var cell1 = row.insertCell(0);
       var cell2 = row.insertCell(1);
       var cell3 = row.insertCell(2);
-      var cell4 = row.insertCell(3);
       cell1.innerHTML = id;
-      cell2.innerHTML = document.getElementById("fnField").value;
-      cell3.innerHTML = document.getElementById("lnField").value;
-      cell4.innerHTML = document.getElementById("dishField").value;
+      cell2.innerHTML = document.getElementById("nameField").value;
+      cell3.innerHTML = document.getElementById("originField").value;
       modal.style.display = "none";
     }
 
