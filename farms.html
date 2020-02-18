@@ -40,6 +40,10 @@
       <div class ="ResultsTableDiv">
         <h1>Farms</</h1>
         <hr>
+        <form class="search">
+          <input type="text" placeholder="Search.." name="search">
+          <button type="submit"><i class="fa fa-search"></i></button>
+        </form>
         <table id="farmsTable">
             <tr>
               <th>ID</th>
@@ -73,8 +77,8 @@
         <span class="close">&times;</span>
         <h1>New Farm</h1>
         <hr>
-        Name: <input type="text" id="nameField">
-        Location: <input type="text" id="locationField">
+        Name: <input type="text" id="nameField" placeholder="Farm Name">
+        Location: <input type="text" id="locationField" placeholder="Farm Location">
         <button type="button" id="newRow" class="newRowbutton">Submit</button>
       </div>
 

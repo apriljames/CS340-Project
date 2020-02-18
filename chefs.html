@@ -40,6 +40,10 @@
       <div class ="ResultsTableDiv">
         <h1>Chefs</</h1>
         <hr>
+        <form class="search">
+          <input type="text" placeholder="Search.." name="search">
+          <button type="submit"><i class="fa fa-search"></i></button>
+        </form>
         <table id="chefsTable">
             <tr>
               <th>ID</th>
@@ -76,9 +80,9 @@
         <span class="close">&times;</span>
         <h1>New Chef</h1>
         <hr>
-        First Name: <input type="text" id="fnField">
-        Last Name: <input type="text" id="lnField">
-        Dish: <input type="text" id="dishField">
+        First Name: <input type="text" id="fnField" placeholder="Chef First Name">
+        Last Name: <input type="text" id="lnField" placeholder="Chef Last Name">
+        Dish: <input type="text" id="dishField" placeholder="Dish Name">
         <button type="button" id="newRow" class="newRowbutton">Submit</button>
       </div>
 

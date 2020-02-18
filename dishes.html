@@ -40,12 +40,19 @@
       <div class ="ResultsTableDiv">
         <h1>Dishes</</h1>
         <hr>
+        <div class="search-container">
+          <form class="search">
+            <input type="text" placeholder="Search.." name="search">
+            <button type="submit"><i class="fa fa-search"></i></button>
+          </form>
+        </div>
         <table id="dishesTable">
             <tr>
               <th>ID</th>
               <th>Name</th>
               <th>Cost</th>
               <th>Description</th>
+              <th>Ingredients</th>
               <th>Edit</th>
               <th>Delete</th>
             </tr>
@@ -54,6 +61,7 @@
               <td>Kung Pao Chicken</td>
               <td>10</td>
               <td>A delicious combination of stir fried veggies and chicken topped with peanuts.</td>
+              <td><input type="button" class="deleteButton" value="View Ingredients" onclick="viewIngredients(this)"/></td>
               <td><input type="button" class="deleteButton" value="Edit" onclick="editRow(this)"/></td>
               <td><input type="button" id="deleteDish" class="deleteButton" value="Delete" onclick="deleteRow(this)"/></td>
             </tr>
@@ -62,6 +70,7 @@
               <td>Chicken Nuggets</td>
               <td>4</td>
               <td>This is exactly what it sounds like.</td>
+              <td><input type="button" class="deleteButton" value="View Ingredients" onclick="viewIngredients(this)"/></td>
               <td><input type="button" class="deleteButton" value="Edit" onclick="editRow(this)"/></td>
               <td><input type="button" id="deleteDish" class="deleteButton" value="Delete" onclick="deleteRow(this)"/></td>
             </tr>
@@ -76,9 +85,15 @@
         <span class="close">&times;</span>
         <h1>New Dish</h1>
         <hr>
-        Name: <input type="text" id="nameField">
-        Cost: <input type="text" id="costField">
-        Description: <input type="text" id="descriptionField">
+        Name: <input type="text" id="nameField" placeholder="Dish Name">
+        Cost: <input type="text" id="costField" placeholder="Dish Cost">
+        Description: <input type="text" id="descriptionField" placeholder="Description of Dish">
+        Ingredients: <select id="ingField" name="Ingredients" size="4" multiple>
+                        <option value="Test">Test</option>
+                        <option value="example">example</option>
+                        <option value="Doesntworkyet">Doesntworkyet</option>
+                        <option value="NeedsDBConnection">NeedsDBConnection</option>
+                     </select><br><br>
         <button type="button" id="newRow" class="newRowbutton">Submit</button>
       </div>
 
@@ -98,15 +113,26 @@
 
     </div>
 
+    <div id="ingredientsModal" class="modal">
+
+      <div class="modal-content">
+        <span class="close">&times;</span>
+        <h1>This will be populated with a list of the dish's ingredients from the Ingredients_In_Dishes table in database.</h1>
+      </div>
+
+    </div>
+
   </body>
 
   <script>
     var modal = document.getElementById("newRowModal");
     var editModal = document.getElementById("editRowModal");
+    var ingredientsModal = document.getElementById("ingredientsModal");
     var newDishBtn = document.getElementById("newDish");
     var submitRowBtn = document.getElementById("newRow");
     var span = document.getElementsByClassName("close")[0];
     var span1 = document.getElementsByClassName("close")[1];
+    var span2 = document.getElementsByClassName("close")[2];
     var id = 2;
 
     newDishBtn.onclick = function() {
@@ -120,6 +146,9 @@
     span1.onclick = function() {
       editModal.style.display = "none";
     }
+    span2.onclick = function() {
+      ingredientsModal.style.display = "none";
+    }
 
     submitRowBtn.onclick = function(){
       var table = document.getElementById("dishesTable");
@@ -130,12 +159,14 @@
       var cell4 = row.insertCell(3);
       var cell5 = row.insertCell(4);
       var cell6 = row.insertCell(5);
+      var cell7 = row.insertCell(6);
       cell1.innerHTML = id;
       cell2.innerHTML = document.getElementById("nameField").value;
       cell3.innerHTML = document.getElementById("costField").value;
       cell4.innerHTML = document.getElementById("descriptionField").value;
-      cell5.innerHTML = "<input type='button' class='deleteButton' value='Edit' onclick='editRow(this)'/>";
-      cell6.innerHTML = "<input type='button' id='deleteChef' class='deleteButton' value='Delete' onclick='deleteRow(this)'/>";
+      cell5.innerHTML = "<input type='button' class='deleteButton' value='View Ingredients' onclick='viewIngredients(this)'/>";
+      cell6.innerHTML = "<input type='button' class='deleteButton' value='Edit' onclick='editRow(this)'/>";
+      cell7.innerHTML = "<input type='button' id='deleteChef' class='deleteButton' value='Delete' onclick='deleteRow(this)'/>";
       modal.style.display = "none";
     }
 
@@ -146,6 +177,10 @@
 
     function editRow(btn) {
       editModal.style.display = "block";
+    }
+
+    function viewIngredients(btn){
+      ingredientsModal.style.display = "block";
     }
 
     window.onclick = function(event) {

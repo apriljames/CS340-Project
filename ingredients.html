@@ -40,6 +40,10 @@
       <div class ="ResultsTableDiv">
         <h1>Ingredients</</h1>
         <hr>
+        <form class="search">
+          <input type="text" placeholder="Search.." name="search">
+          <button type="submit"><i class="fa fa-search"></i></button>
+        </form>
         <table id="ingredientsTable">
             <tr>
               <th>ID</th>
@@ -73,8 +77,8 @@
         <span class="close">&times;</span>
         <h1>New Ingredient</h1>
         <hr>
-        Name: <input type="text" id="nameField">
-        Origin: <input type="text" id="originField">
+        Name: <input type="text" id="nameField" placeholder="Ingredient Name">
+        Origin: <input type="text" id="originField" placeholder="Ingredient's Origin Location">
         <button type="button" id="newRow" class="newRowbutton">Submit</button>
       </div>
 
