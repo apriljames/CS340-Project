@@ -8,16 +8,17 @@
   padding-top: 10px;
   padding-bottom: 10px;
   border-radius: 10px;
-}
-
-.ResultsTableDiv hr {
   width: 50%;
 }
+
+/* .ResultsTableDiv hr {
+  width: 50%;
+} */
 
 table {
   font-family: arial, sans-serif;
   border-collapse: collapse;
-  width: 90%;
+  width: 80%;
   margin-left: 5%;
   margin-right: 5%;
   text-align: center;
@@ -27,12 +28,13 @@ td, th {
   border: 1px solid #000000;
   text-align: center;
   padding: 8px;
-  font-size: 16px;
+  font-size: 13px;
+  width: 50%;
 }
 
 th {
   text-align: center;
-  font-size: 24px;
+  font-size: 18px;
 }
 
 tr:nth-child(even) {
@@ -54,6 +56,7 @@ tr:nth-child(odd) {
   margin: 4px 2px;
   cursor: pointer;
   border-radius: 4px;
+  width: 100%;
 }
 
 /* The Modal (background) */

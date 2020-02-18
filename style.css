@@ -77,3 +77,14 @@ a:focus {
   padding-left: 10px;
   padding-right: 10px;
 }
+
+#indexList {
+  text-align: left;
+}
+
+img {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 90%;
+}
