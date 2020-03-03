@@ -1,0 +1,79 @@
+
+    <header> 
+      <!-- The <i> tag below includes the bullhorn icon from Font Awesome -->
+      <a href="index.html"><h1 class="site-title">Oakville's Chefs</h1></a>
+
+      <nav class="navbar">
+        <ul class="navlist">
+          <li class="navitem navlink"><a href="index.html">Home</a></li>
+          <li class="navitem navlink active"><a href="chefs.html">Chefs</a></li>
+          <li class="navitem navlink"><a href="dishes.html">Dishes</a></li>
+          <li class="navitem navlink"><a href="ingredients.html">Ingredients</a></li>
+          <li class="navitem navlink"><a href="farms.html">Farms</a></li>
+        </ul>
+      </nav>
+    </header>
+
+    <main>
+
+      <div class ="ResultsTableDiv">
+        <h1>Chefs</</h1>
+        <hr>
+        <form class="search">
+          <input type="text" placeholder="Search.." name="search">
+          <button type="submit"><i class="fa fa-search"></i></button>
+        </form>
+        <table id="chefsTable">
+            <thead>
+              <th>ID</th>
+              <th>First Name</th>
+              <th>Last Name</th>
+              <th>Dish</th>
+              <th>Edit</th>
+              <th>Delete</th>
+            </thead>
+            <tbody>
+                {{#each chefs}} 
+                    <tr>
+                        <td>{{chefID}}</td>
+                        <td>{{fname}}</td>
+                        <td>{{lname}}</td>
+                        <td>{{dish}}</td>
+                        <td><input type="button" class="deleteButton" value="Edit" onclick="editRow(this)"/></td>
+                        <td><input type="button" id="deleteChef" class="deleteButton" value="Delete" onclick="deleteRow({{chefID}})"/></td>
+                    </tr>
+                {{/each}}
+            </tbody>
+            
+        </table>
+        <button type="button" id="newChef" class="newRowbutton">New Chef</button>
+      </div>
+    </main>
+
+    <div id="newRowModal" class="modal">
+
+      <div class="modal-content">
+        <span class="close">&times;</span>
+        <h1>New Chef</h1>
+        <hr>
+        First Name: <input type="text" id="fnField" placeholder="Chef First Name">
+        Last Name: <input type="text" id="lnField" placeholder="Chef Last Name">
+        Dish: <input type="text" id="dishField" placeholder="Dish Name">
+        <button type="button" id="newRow" class="newRowbutton">Submit</button>
+      </div>
+
+    </div>
+
+    <div id="editRowModal" class="modal">
+
+      <div class="modal-content">
+        <span class="close">&times;</span>
+        <h1>Edit Chef</h1>
+        <hr>
+        First Name: <input type="text" id="fnField1">
+        Last Name: <input type="text" id="lnField1">
+        Dish: <input type="text" id="dishField1">
+        <button type="button" id="modifyRow" class="newRowbutton">Submit</button>
+      </div>
+
+    </div>

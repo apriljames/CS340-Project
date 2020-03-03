@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+  <head>
+
+    <meta charset="utf-8">
+
+
+    <title>Oakville Chefs</title>
+
+    <!-- This is a stylesheet that includes the font you should use: Roboto -->
+    <link href="https://fonts.googleapis.com/css?family=Roboto:100,400,700" rel="stylesheet">
+
+    <link rel="stylesheet" href="style.css" media="screen">
+    <link rel="stylesheet" href="entityCSS.css" media="screen">
+
+    <!-- This script incorporates SVG icons from Font Awesome: http://fontawesome.com/ -->
+    <script src="https://use.fontawesome.com/releases/v5.0.9/js/all.js" defer></script>
+
+  </head>
+
+  <body>
+      {{{body}}}
+  </body>
+
+  <script>
+    var modal = document.getElementById("newRowModal");
+    var editModal = document.getElementById("editRowModal");
+    var newFarmBtn = document.getElementById("newFarm");
+    var submitRowBtn = document.getElementById("newRow");
+    var span = document.getElementsByClassName("close")[0];
+    var span1 = document.getElementsByClassName("close")[1];
+    var id = 2;
+
+    newFarmBtn.onclick = function() {
+      modal.style.display = "block";
+    }
+
+    span.onclick = function() {
+      modal.style.display = "none";
+    }
+
+    span1.onclick = function() {
+      editModal.style.display = "none";
+    }
+
+    submitRowBtn.onclick = function(){
+      var table = document.getElementById("farmsTable");
+      var row = table.insertRow(++id);
+      var cell1 = row.insertCell(0);
+      var cell2 = row.insertCell(1);
+      var cell3 = row.insertCell(2);
+      var cell4 = row.insertCell(3);
+      var cell5 = row.insertCell(4);
+      cell1.innerHTML = id;
+      cell2.innerHTML = document.getElementById("nameField").value;
+      cell3.innerHTML = document.getElementById("locationField").value;
+      cell4.innerHTML = "<input type='button' class='deleteButton' value='Edit' onclick='editRow(this)'/>";
+      cell5.innerHTML = "<input type='button' id='deleteChef' class='deleteButton' value='Delete' onclick='deleteRow(this)'/>";
+      modal.style.display = "none";
+    }
+
+    function deleteRow(btn) {
+      var row = btn.parentNode.parentNode;
+      row.parentNode.removeChild(row);
+    }
+
+    function editRow(btn) {
+      editModal.style.display = "block";
+    }
+
+    window.onclick = function(event) {
+      if (event.target == modal) {
+        modal.style.display = "none";
+      }
+    }
+  </script>
+
+</html>
