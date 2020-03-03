@@ -56,24 +56,35 @@
         <span class="close">&times;</span>
         <h1>New Chef</h1>
         <hr>
-        First Name: <input type="text" id="fnField" placeholder="Chef First Name">
-        Last Name: <input type="text" id="lnField" placeholder="Chef Last Name">
-        Dish: <input type="text" id="dishField" placeholder="Dish Name">
-        <button type="button" id="newRow" class="newRowbutton">Submit</button>
+        <form id="addChef" action="/chefs" method="post">
+            First Name: <input type="text" id="fnField" placeholder="Chef First Name">
+            Last Name: <input type="text" id="lnField" placeholder="Chef Last Name">
+            Dish: <select name="dish"> 
+                    {{#each dishes}}
+                    <option value="{{dishID}}">{{name}}</option>
+                    {{/each}}
+                </select><br>
+            <button type="button" id="newRow" class="newRowbutton">Submit</button>
+        </form>
       </div>
 
     </div>
 
     <div id="editRowModal" class="modal">
 
-      <div class="modal-content">
-        <span class="close">&times;</span>
-        <h1>Edit Chef</h1>
-        <hr>
-        First Name: <input type="text" id="fnField1">
-        Last Name: <input type="text" id="lnField1">
-        Dish: <input type="text" id="dishField1">
-        <button type="button" id="modifyRow" class="newRowbutton">Submit</button>
-      </div>
-
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h1>Edit Chef</h1>
+            <hr>
+            <form id="update-person" action="/people" method="post">
+                First Name: <input type="text" id="fnField1" value="{{fname}}">
+                Last Name: <input type="text" id="lnField1" value="{{lname}}">
+                Dish: <select name="dish" id="dishField1"> 
+                    {{#each dishes}}
+                        <option value="{{dishID}}">{{name}}</option>
+                    {{/each}}
+                </select><br>
+                <button type="button" id="modifyRow" class="newRowbutton">Submit</button>
+            </form>
+        </div>
     </div>
