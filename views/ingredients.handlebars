@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+  <head>
+
+    <meta charset="utf-8">
+
+
+    <title>Oakville Chefs</title>
+
+    <!-- This is a stylesheet that includes the font you should use: Roboto -->
+    <link href="https://fonts.googleapis.com/css?family=Roboto:100,400,700" rel="stylesheet">
+
+    <link rel="stylesheet" href="style.css" media="screen">
+    <link rel="stylesheet" href="entityCSS.css" media="screen">
+
+    <!-- This script incorporates SVG icons from Font Awesome: http://fontawesome.com/ -->
+    <script src="https://use.fontawesome.com/releases/v5.0.9/js/all.js" defer></script>
+
+  </head>
+
+  <body>
+
+    <header>
+      <!-- The <i> tag below includes the bullhorn icon from Font Awesome -->
+      <a href="index.html"><h1 class="site-title">Oakville's Chefs</h1></a>
+
+      <nav class="navbar">
+        <ul class="navlist">
+          <li class="navitem navlink"><a href="index.html">Home</a></li>
+          <li class="navitem navlink"><a href="chefs.html">Chefs</a></li>
+          <li class="navitem navlink"><a href="dishes.html">Dishes</a></li>
+          <li class="navitem navlink active"><a href="ingredients.html">Ingredients</a></li>
+          <li class="navitem navlink"><a href="farms.html">Farms</a></li>
+        </ul>
+      </nav>
+    </header>
+
+    <main>
+
+      <div class ="ResultsTableDiv">
+        <h1>Ingredients</</h1>
+        <hr>
+        <form class="search">
+          <input type="text" placeholder="Search.." name="search" id="name_search_string">
+          <button type="button" value="Search" onclick="searchIngredientsByName()"><i class="fa fa-search"></i></button>
+        </form>
+        <table id="ingredientsTable">
+            <thead>
+              <th>ID</th>
+              <th>Name</th>
+              <th>Origin</th>
+              <th>Edit</th>
+              <th>Delete</th>
+            </thead>
+            <tbody>
+                {{#each ingredients}}
+                    <tr>
+                        <td>{{ingID}}</td>
+                        <td>{{name}}</td>
+                        <td>{{origin}}</td>
+                        <td><input type="button" class="deleteButton" value="Edit" onclick="updateIngredient({{ingID}})"/></td>
+                        <td><input type="button" id="deleteIngredient" class="deleteButton" value="Delete" onclick="deleteIngredient({{ingID}})"/></td>
+                    </tr>
+                {{/each}}
+            </tbody>
+        </table>
+        <button type="button" id="newIngredient" class="newRowbutton" onclick="popupIngredient()">New Ingredient</button>
+      </div>
+    </main>
+
+    <div id="newRowModal" class="modal">
+
+      <div class="modal-content">
+        <span class="close" onclick="hideModal()">&times;</span>
+        <h1>New Ingredient</h1>
+        <hr>
+        <form id="addIngredient" action="/ingredients" method="post">
+            Name: <input type="text" id="nameField" placeholder="Ingredient Name">
+            Origin: <input type="text" id="originField" placeholder="Origin of Ingredient">
+            <input type="submit" id="newRow" class="newRowbutton" value="Submit">Submit</button>
+        </form>
+      </div>
+
+    </div>
+
+    <div id="editRowModal" class="modal">
+
+      <div class="modal-content" onclick="hideEditModal()">
+        <span class="close">&times;</span>
+        <h1>Edit Ingredient</h1>
+        <hr>
+        <form id="update-ingredient" action="/ingredients" method="post">
+            Name: <input type="text" id="nameField" value="{{ingredient.name}}">
+            Origin: <input type="text" id="originField" value="{{ingredient.origin}}">
+        </form>
+        <button type="button" id="modifyRow" class="newRowbutton">Submit</button>
+      </div>
+
+    </div>
+
+  </body>
+
+</html>

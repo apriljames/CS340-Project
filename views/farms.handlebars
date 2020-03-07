@@ -1,0 +1,79 @@
+<html>
+  <header>
+    <!-- The <i> tag below includes the bullhorn icon from Font Awesome -->
+    <a href="index.html"><h1 class="site-title">Oakville's Chefs</h1></a>
+
+    <nav class="navbar">
+      <ul class="navlist">
+        <li class="navitem navlink"><a href="index.html">Home</a></li>
+        <li class="navitem navlink"><a href="chefs.html">Chefs</a></li>
+        <li class="navitem navlink"><a href="dishes.html">Dishes</a></li>
+        <li class="navitem navlink"><a href="ingredients.html">Ingredients</a></li>
+        <li class="navitem navlink active"><a href="farms.html">Farms</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main>
+
+    <div class ="ResultsTableDiv">
+      <h1>Farms</</h1>
+      <hr>
+      <form class="search">
+        <input type="text" placeholder="Search.." name="search" id="name_search_string">
+        <button type="button" value="Search" onclick="searchFarmsByName()"><i class="fa fa-search"></i></button>
+      </form>
+      <table id="farmsTable">
+          <thead>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Location</th>
+            <th>Edit</th>
+            <th>Delete</th>
+          </thead>
+          <tbody>
+              {{#each farms}}
+                  <tr>
+                      <td>{{farmID}}</td>
+                      <td>{{name}}</td>
+                      <td>{{location}}</td>
+                      <td><input type="button" class="deleteButton" value="Edit" onclick="updateFarm({{farmID}})"/></td>
+                      <td><input type="button" id="deleteFarm" class="deleteButton" value="Delete" onclick="deleteFarm({{farmID}})"/></td>
+                  </tr>
+              {{/each}}
+          </tbody>
+      </table>
+      <button type="button" id="newFarm" class="newRowbutton" onclick="popupFarm()">New Farm</button>
+    </div>
+  </main>
+
+  <div id="newRowModal" class="modal">
+
+    <div class="modal-content">
+      <span class="close" onclick="hideModal()">&times;</span>
+      <h1>New Farm</h1>
+      <hr>
+      <form id="addFarm" action="/farms" method="post">
+        Name: <input type="text" id="nameField" placeholder="Farm Name">
+        Location: <input type="text" id="locationField" placeholder="Farm Location">
+          <input type="submit" id="newRow" class="newRowbutton" value="Submit">Submit</button>
+      </form>
+    </div>
+
+  </div>
+
+  <div id="editRowModal" class="modal">
+
+    <div class="modal-content">
+      <span class="close" onclick="hideModal()">&times;</span>
+      <h1>Edit Farm</h1>
+      <hr>
+      <form id="update-farm" action="/farms" method="post">
+          Name: <input type="text" id="fnField1" value="{{farm.name}}">
+          Location: <input type="text" id="lnField1" value="{{farm.location}}">
+      </form>
+      <button type="button" id="modifyRow" class="newRowbutton" onclick="updateFarm({{farm.id}})">Submit</button>
+    </div>
+
+  </div>
+</html>

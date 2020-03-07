@@ -1,0 +1,98 @@
+<html>
+  <header>
+    <!-- The <i> tag below includes the bullhorn icon from Font Awesome -->
+    <a href="index.html"><h1 class="site-title">Oakville's Chefs</h1></a>
+
+    <nav class="navbar">
+      <ul class="navlist">
+        <li class="navitem navlink"><a href="index.html">Home</a></li>
+        <li class="navitem navlink"><a href="chefs.html">Chefs</a></li>
+        <li class="navitem navlink active"><a href="dishes.html">Dishes</a></li>
+        <li class="navitem navlink"><a href="ingredients.html">Ingredients</a></li>
+        <li class="navitem navlink"><a href="farms.html">Farms</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main>
+
+    <div class ="ResultsTableDiv">
+      <h1>Dishes</</h1>
+      <hr>
+      <form class="search">
+        <input type="text" placeholder="Search.." name="search" id="first_name_search_string">
+        <button type="button" value="Search" onclick="searchDishesByFirstName()"><i class="fa fa-search"></i></button>
+      </form>
+      <table id="dishesTable">
+          <tr>
+            <thead>
+              <th>ID</th>
+              <th>Name</th>
+              <th>Cost</th>
+              <th>Description</th>
+              <th>Ingredients</th>
+              <th>Edit</th>
+              <th>Delete</th>
+            </thead>
+            <tbody>
+                {{#each dishes}}
+                    <tr>
+                        <td>{{dishID}}</td>
+                        <td>{{name}}</td>
+                        <td>{{cost}}</td>
+                        <td>{{description}}</td>
+                        <td><input type="button" class="deleteButton" value="Ingredients" onclick="viewIngredients({{dishID}})"/></td>
+                        <td><input type="button" class="deleteButton" value="Edit" onclick="updateDish({{dishID}})"/></td>
+                        <td><input type="button" id="deleteDish" class="deleteButton" value="Delete" onclick="deleteDish({{dishID}})"/></td>
+                    </tr>
+                {{/each}}
+            </tbody>
+      </table>
+      <button type="button" id="newDish" class="newRowbutton" onclick="popupDish()">New Dish</button>
+    </div>
+  </main>
+
+  <div id="newRowModal" class="modal">
+
+    <div class="modal-content">
+      <span class="close" onclick="hideModal()">&times;</span>
+      <h1>New Dish</h1>
+      <hr>
+      <form id="addDish" action="/dishes" method="post">
+          Name: <input type="text" id="nameField" placeholder="Dish Name">
+          Cost: <input type="text" id="costField" placeholder="Dish Cost">
+          Description: <input type="text" id="descriptionField" placeholder="Description of Dish">
+          <input type="submit" id="newRow" class="newRowbutton" value="Submit">Submit</button>
+      </form>
+    </div>
+
+  </div>
+
+  <div id="editRowModal" class="modal">
+
+    <div class="modal-content">
+      <span class="close" onclick="hideEditModal()">&times;</span>
+      <h1>Edit Dish</h1>
+      <hr>
+      <form id="update-dish" action="/dishes" method="post">
+        Name: <input type="text" id="nameField" value="{{dish.name}}">
+        Cost: <input type="text" id="costField" value="{{dish.cost}}">
+        Description: <input type="text" id="descriptionField" value="{{dish.description}}">
+      </form>
+      <button type="button" id="modifyRow" class="newRowbutton" onclick="updateDish({{dish.id}})">Submit</button>
+      <script defer>selectDish({{dish.dish}});</script>
+    </div>
+  </div>
+
+  <div id="ingredientsModal" class="modal" style="display: block;">
+      <div class="modal-content">
+        <span class="close" onclick="hideIngredientsModal()">&times;</span>
+        <h1>This will be populated with a list of the dish's ingredients from the Ingredients_In_Dishes table in database.</h1>
+        {{#each ingredients}}
+        <ul>
+          <li>{{ingredients.name}}</li>
+        </ul>
+        {{/each}}
+      </div>
+    </div>
+</html>
