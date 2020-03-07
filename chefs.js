@@ -10,7 +10,7 @@ module.exports = function(){
             }
             context.dishes  = results;
             complete();
-        }); 
+        });
     }
 
     function getChefs(res, mysql, context, complete){
@@ -23,7 +23,7 @@ module.exports = function(){
             complete();
         });
     }
-    
+
     function getChefsWithNameLike(req, res, mysql, context, complete) {
           //sanitize the input as well as include the % character
            var query = "SELECT chefs.chefID as id, fName, lName, dish FROM Chefs WHERE Chefs.fName LIKE " + mysql.pool.escape(req.params.s + '%');
@@ -34,7 +34,7 @@ module.exports = function(){
                     res.write(JSON.stringify(error));
                     res.end();
                 }
-                context.people = results;
+                context.chefs = results;
                 complete();
             });
         }
@@ -46,7 +46,7 @@ module.exports = function(){
                     res.write(JSON.stringify(error));
                     res.end();
                 }
-                context.person = results[0];
+                context.chef = results[0];
                 complete();
             });
         }
@@ -54,7 +54,7 @@ module.exports = function(){
     router.get('/', function(req, res){
         var callbackCount = 0;
         var context = {};
-        //context.jsscripts = ["deleteperson.js","filterpeople.js","searchpeople.js"];
+        context.jsscripts = ["deletechef.js","searchchefs.js"];
         var mysql = req.app.get('mysql');
         getDishes(res, mysql, context, complete);
         getChefs(res, mysql, context, complete);
@@ -66,12 +66,12 @@ module.exports = function(){
 
         }
     });
-    
+
     /*Display all people whose name starts with a given string. Requires web based javascript to delete users with AJAX */
         router.get('/search/:s', function(req, res){
             var callbackCount = 0;
             var context = {};
-            //context.jsscripts = ["deleteperson.js","filterpeople.js","searchpeople.js"];
+            context.jsscripts = ["deletechef.js","searchchefs.js"];
             var mysql = req.app.get('mysql');
             getChefsWithNameLike(req, res, mysql, context, complete);
             function complete(){
@@ -87,13 +87,15 @@ module.exports = function(){
         router.get('/:id', function(req, res){
             callbackCount = 0;
             var context = {};
-            //context.jsscripts = ["selectedplanet.js", "updateperson.js"];
+            context.jsscripts = ["selecteddish.js", "updatechef.js"];
             var mysql = req.app.get('mysql');
             getChef(res, mysql, context, req.params.id, complete);
             function complete(){
                 callbackCount++;
                 if(callbackCount >= 2){
                    res.render('chefs', context);
+                   var editModal = document.getElementById("editRowModal");
+                   editModal.style.display = "block";
                 }
 
             }
