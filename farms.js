@@ -13,7 +13,7 @@ module.exports = function(){
         });
     }
 
-    function getIngredientsWithNameLike(req, res, mysql, context, complete) {
+    function getFarmsWithNameLike(req, res, mysql, context, complete) {
           //sanitize the input as well as include the % character
            var query = "SELECT Farms.farmID as id, name, location FROM Farms WHERE Farms.name LIKE " + mysql.pool.escape(req.params.s + '%');
           console.log(query)
@@ -28,7 +28,7 @@ module.exports = function(){
             });
         }
 
-    function getingredient(res, mysql, context, id, complete){
+    function getFarm(res, mysql, context, id, complete){
             var sql = "SELECT farmID as id, name, location FROM Farms WHERE farmID = ?";
             var inserts = [id];
             mysql.pool.query(sql, inserts, function(error, results, fields){
@@ -83,6 +83,8 @@ module.exports = function(){
                 callbackCount++;
                 if(callbackCount >= 1){
                    res.render('farms', context);
+                   var editModal = document.getElementById("editRowModal");
+                   editModal.style.display = "block";
                 }
 
             }
