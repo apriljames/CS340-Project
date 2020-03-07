@@ -57,7 +57,7 @@ module.exports = function(){
     router.get('/', function(req, res){
         var callbackCount = 0;
         var context = {};
-        //context.jsscripts = ["deleteperson.js","filterpeople.js","searchpeople.js"];
+        context.jsscripts = ["deletedish.js","searchdishes.js"];
         var mysql = req.app.get('mysql');
         getDishes(res, mysql, context, complete);
         getIngredients(res, mysql, context, complete);
@@ -74,7 +74,7 @@ module.exports = function(){
         router.get('/search/:s', function(req, res){
             var callbackCount = 0;
             var context = {};
-            //context.jsscripts = ["deleteperson.js","filterpeople.js","searchpeople.js"];
+            context.jsscripts = ["deletedish.js","searchdishes.js"];
             var mysql = req.app.get('mysql');
             getDishesWithNameLike(req, res, mysql, context, complete);
             function complete(){
@@ -90,13 +90,15 @@ module.exports = function(){
         router.get('/:id', function(req, res){
             callbackCount = 0;
             var context = {};
-            //context.jsscripts = ["selectedplanet.js", "updateperson.js"];
+            context.jsscripts = ["updatedish.js"];
             var mysql = req.app.get('mysql');
             getDish(res, mysql, context, req.params.id, complete);
             function complete(){
                 callbackCount++;
                 if(callbackCount >= 1){
                    res.render('dishes', context);
+                   var editModal = document.getElementById("editRowModal");
+                   editModal.style.display = "block";
                 }
 
             }
@@ -157,6 +159,24 @@ module.exports = function(){
                 }
             })
         })
+
+        /* Route to view a dishes ingredients */
+        router.get('/dishes/ingredients/:s', function(req, res){
+            var callbackCount = 0;
+            var context = {};
+            context.jsscripts = ["searchdishes.js","viewIngredients.js"];
+            var mysql = req.app.get('mysql');
+            getIngredients(req, res, mysql, context, complete);
+            function complete(){
+                callbackCount++;
+                if(callbackCount >= 1){
+                    res.render('dishes', context);
+                    var ingredientsModal = document.getElementById("ingredientsModal");
+                    ingredientsModal.style.display = "block";
+                }
+            }
+        });
+
 
     return router;
 }();
