@@ -1,5 +1,5 @@
-
-    <header> 
+<html>
+    <header>
       <!-- The <i> tag below includes the bullhorn icon from Font Awesome -->
       <a href="index.html"><h1 class="site-title">Oakville's Chefs</h1></a>
 
@@ -20,8 +20,8 @@
         <h1>Chefs</</h1>
         <hr>
         <form class="search">
-          <input type="text" placeholder="Search.." name="search">
-          <button type="submit"><i class="fa fa-search"></i></button>
+          <input type="text" placeholder="Search.." name="search" id="first_name_search_string">
+          <button type="button" value="Search" onclick="searchChefsByFirstName()"><i class="fa fa-search"></i></button>
         </form>
         <table id="chefsTable">
             <thead>
@@ -33,38 +33,38 @@
               <th>Delete</th>
             </thead>
             <tbody>
-                {{#each chefs}} 
+                {{#each chefs}}
                     <tr>
                         <td>{{chefID}}</td>
                         <td>{{fname}}</td>
                         <td>{{lname}}</td>
                         <td>{{dish}}</td>
-                        <td><input type="button" class="deleteButton" value="Edit" onclick="editRow(this)"/></td>
-                        <td><input type="button" id="deleteChef" class="deleteButton" value="Delete" onclick="deleteRow({{chefID}})"/></td>
+                        <td><input type="button" class="deleteButton" value="Edit" onclick="updateChef({{chefID}})"/></td>
+                        <td><input type="button" id="deleteChef" class="deleteButton" value="Delete" onclick="deleteChef({{chefID}})"/></td>
                     </tr>
                 {{/each}}
             </tbody>
-            
+
         </table>
-        <button type="button" id="newChef" class="newRowbutton">New Chef</button>
+        <button type="button" id="newChef" class="newRowbutton" onclick="popupChef()">New Chef</button>
       </div>
     </main>
 
     <div id="newRowModal" class="modal">
 
       <div class="modal-content">
-        <span class="close">&times;</span>
+        <span class="close" onclick="hideModal()">&times;</span>
         <h1>New Chef</h1>
         <hr>
         <form id="addChef" action="/chefs" method="post">
             First Name: <input type="text" id="fnField" placeholder="Chef First Name">
             Last Name: <input type="text" id="lnField" placeholder="Chef Last Name">
-            Dish: <select name="dish"> 
+            Dish: <select name="dish">
                     {{#each dishes}}
                     <option value="{{dishID}}">{{name}}</option>
                     {{/each}}
                 </select><br>
-            <button type="button" id="newRow" class="newRowbutton">Submit</button>
+            <input type="submit" id="newRow" class="newRowbutton" value="Submit">Submit</button>
         </form>
       </div>
 
@@ -73,18 +73,15 @@
     <div id="editRowModal" class="modal">
 
         <div class="modal-content">
-            <span class="close">&times;</span>
+            <span class="close" onclick="hideEditModal()">&times;</span>
             <h1>Edit Chef</h1>
             <hr>
-            <form id="update-person" action="/people" method="post">
-                First Name: <input type="text" id="fnField1" value="{{fname}}">
-                Last Name: <input type="text" id="lnField1" value="{{lname}}">
-                Dish: <select name="dish" id="dishField1"> 
-                    {{#each dishes}}
-                        <option value="{{dishID}}">{{name}}</option>
-                    {{/each}}
-                </select><br>
-                <button type="button" id="modifyRow" class="newRowbutton">Submit</button>
+            <form id="update-chef" action="/chefs" method="post">
+                First Name: <input type="text" id="fnField1" value="{{chef.fname}}">
+                Last Name: <input type="text" id="lnField1" value="{{chef.lname}}">
             </form>
+            <button type="button" id="modifyRow" class="newRowbutton" onclick="updateChef({{chef.id}})">Submit</button>
+            <script defer>selectDish({{chef.dish}});</script>
         </div>
     </div>
+</html>
