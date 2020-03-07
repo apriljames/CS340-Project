@@ -44,7 +44,7 @@ module.exports = function(){
     router.get('/', function(req, res){
         var callbackCount = 0;
         var context = {};
-        //context.jsscripts = ["deleteperson.js","filterpeople.js","searchpeople.js"];
+        context.jsscripts = ["deleteIngredient.js","searchingredients.js"];
         var mysql = req.app.get('mysql');
         getIngredients(res, mysql, context, complete);
         function complete(){
@@ -60,7 +60,7 @@ module.exports = function(){
         router.get('/search/:s', function(req, res){
             var callbackCount = 0;
             var context = {};
-            //context.jsscripts = ["deleteperson.js","filterpeople.js","searchpeople.js"];
+            context.jsscripts = ["deleteIngredient.js","searchingredients.js"];
             var mysql = req.app.get('mysql');
             getIngredientsWithNameLike(req, res, mysql, context, complete);
             function complete(){
@@ -76,13 +76,15 @@ module.exports = function(){
         router.get('/:id', function(req, res){
             callbackCount = 0;
             var context = {};
-            //context.jsscripts = ["selectedplanet.js", "updateperson.js"];
+            context.jsscripts = ["updateingredient.js"];
             var mysql = req.app.get('mysql');
             getIngredient(res, mysql, context, req.params.id, complete);
             function complete(){
                 callbackCount++;
                 if(callbackCount >= 1){
                    res.render('ingredients', context);
+                   var editModal = document.getElementById("editRowModal");
+                   editModal.style.display = "block";
                 }
 
             }
