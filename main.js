@@ -16,13 +16,13 @@ app.engine('handlebars', handlebars.engine);
 app.use(bodyParser.urlencoded({extended:true}));
 app.use('/static', express.static('public'));
 app.set('view engine', 'handlebars');
-app.set('port', 9898);
+app.set('port', 9899);
 app.set('mysql', mysql);
 
 app.use('/chefs', require('./chefs.js'));
-//app.use('/ingredients', require('./ingredients.js'));
-//app.use('/dishes', require('./dishes.js'));
-//app.use('/farms', require('./farms.js'));
+app.use('/ingredients', require('./ingredients.js'));
+app.use('/dishes', require('./dishes.js'));
+app.use('/farms', require('./farms.js'));
 app.use('/', express.static('public'));
 
 app.use(function(req,res){
