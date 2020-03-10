@@ -15,6 +15,10 @@
 
     <!-- This script incorporates SVG icons from Font Awesome: http://fontawesome.com/ -->
     <script src="https://use.fontawesome.com/releases/v5.0.9/js/all.js" defer></script>
+    
+    {{#each jsscripts}}
+      <script src="/static/{{this}}"></script>
+    {{/each}}
 
   </head>
 
