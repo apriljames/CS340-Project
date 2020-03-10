@@ -56,8 +56,8 @@ module.exports = function(){
         var context = {};
         context.jsscripts = ["deletechef.js","searchchefs.js"];
         var mysql = req.app.get('mysql');
-        getDishes(res, mysql, context, complete);
         getChefs(res, mysql, context, complete);
+        getDishes(res, mysql, context, complete);
         function complete(){
             callbackCount++;
             if(callbackCount >= 2){
