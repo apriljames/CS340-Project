@@ -20,6 +20,7 @@ module.exports = function(){
                 res.end();
             }
             context.chefs = results;
+            console.log(results);
             complete();
         });
     }
