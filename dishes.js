@@ -13,10 +13,8 @@ module.exports = function(){
         });
     }
 
-    function getIngredients(res, mysql, context, id, complete){
-        var sql = "SELECT name FROM Dishes INNER JOIN Ingredients_in_Dishes ON Ingredients_in_Dishes.dishID = Dishes.dishID INNER JOIN Ingredients ON Ingredients_in_Dishes.ingID = Ingredients.ingID WHERE dishID = ?";
-        var inserts = [id];
-        mysql.pool.query(sql, inserts, function(error, results, fields){
+    function getIngredients(res, mysql, context, complete){
+        mysql.pool.query("SELECT ingID, name FROM Ingredients", function(error, results, fields){
             if(error){
                 res.write(JSON.stringify(error));
                 res.end();
@@ -26,9 +24,22 @@ module.exports = function(){
         });
     }
 
+    function getIngredientsForDish(res, mysql, id, context, complete){
+        var sql = "SELECT name FROM Ingredients_In_Dishes INNER JOIN Ingredients ON Ingredients_In_Dishes.ingID = Ingredients.ingID WHERE Ingredients_In_Dishes.dishID = ?"
+        var inserts = [id];
+        mysql.pool.query(sql, inserts, function(error, results, fields){
+            if(error){
+                res.write(JSON.stringify(error));
+                res.end();
+            }
+            context.ingredientslist = results;
+            complete();
+        });
+    }
+
     function getDishesWithNameLike(req, res, mysql, context, complete) {
           //sanitize the input as well as include the % character
-           var query = "SELECT Dishes.dishID as id, name, cost, description FROM Dishes WHERE Dishes.name LIKE " + mysql.pool.escape(req.params.s + '%');
+           var query = "SELECT Dishes.dishID, name, cost, description FROM Dishes WHERE Dishes.name LIKE " + mysql.pool.escape(req.params.s + '%');
           console.log(query)
 
           mysql.pool.query(query, function(error, results, fields){
@@ -57,7 +68,7 @@ module.exports = function(){
     router.get('/', function(req, res){
         var callbackCount = 0;
         var context = {};
-        context.jsscripts = ["deletedish.js","searchdishes.js"];
+        context.jsscripts = ["deletedish.js","searchdishes.js","adddish.js","updatedish.js","viewingredients.js"];
         var mysql = req.app.get('mysql');
         getDishes(res, mysql, context, complete);
         getIngredients(res, mysql, context, complete);
@@ -74,7 +85,7 @@ module.exports = function(){
         router.get('/search/:s', function(req, res){
             var callbackCount = 0;
             var context = {};
-            context.jsscripts = ["deletedish.js","searchdishes.js"];
+            context.jsscripts = ["deletedish.js","searchdishes.js","adddish.js","updatedish.js","viewingredients.js"];
             var mysql = req.app.get('mysql');
             getDishesWithNameLike(req, res, mysql, context, complete);
             function complete(){
@@ -120,6 +131,20 @@ module.exports = function(){
                     res.redirect('/dishes');
                 }
             });
+/*
+            var mysql = req.app.get('mysql');
+            var sql = "INSERT INTO Ingredients_In_Dishes (name, cost, description) VALUES (?,?,?)"; // NEEDS ANOTHER QUERY TO INSERT INTO RELATIONSHIP TABLE
+            var inserts = [req.body.name, req.body.cost, req.body.description];
+            sql = mysql.pool.query(sql,inserts,function(error, results, fields){
+                if(error){
+                    console.log(JSON.stringify(error))
+                    res.write(JSON.stringify(error));
+                    res.end();
+                }else{
+                    res.redirect('/dishes');
+                }
+            });
+            */
         });
 
         /* The URI that update data is sent to in order to update a person */
@@ -161,12 +186,12 @@ module.exports = function(){
         })
 
         /* Route to view a dishes ingredients */
-        router.get('/dishes/ingredients/:s', function(req, res){
+        router.get('/dishes/ingredients/:id', function(req, res){
             var callbackCount = 0;
             var context = {};
-            context.jsscripts = ["searchdishes.js","viewIngredients.js"];
+            context.jsscripts = ["deletedish.js","searchdishes.js","adddish.js","updatedish.js","viewingredients.js"];
             var mysql = req.app.get('mysql');
-            getIngredients(req, res, mysql, context, complete);
+            getIngredientsForDish(res, mysql, req.params.id, context, complete);
             function complete(){
                 callbackCount++;
                 if(callbackCount >= 1){

@@ -6,10 +6,10 @@
       <nav class="navbar">
         <ul class="navlist">
           <li class="navitem navlink"><a href="index.html">Home</a></li>
-          <li class="navitem navlink"><a href="chefs.html">Chefs</a></li>
-          <li class="navitem navlink"><a href="dishes.html">Dishes</a></li>
-          <li class="navitem navlink active"><a href="ingredients.html">Ingredients</a></li>
-          <li class="navitem navlink"><a href="farms.html">Farms</a></li>
+          <li class="navitem navlink"><a href="/chefs">Chefs</a></li>
+          <li class="navitem navlink"><a href="/dishes">Dishes</a></li>
+          <li class="navitem navlink active"><a href="/ingredients">Ingredients</a></li>
+          <li class="navitem navlink"><a href="/farms">Farms</a></li>
         </ul>
       </nav>
     </header>
@@ -36,7 +36,7 @@
                     <tr>
                         <td>{{ingID}}</td>
                         <td>{{name}}</td>
-                        <td>{{origin}}</td>
+                        <td>{{farmname}}</td>
                         <td><input type="button" class="deleteButton" value="Edit" onclick="updateIngredient({{ingID}})"/></td>
                         <td><input type="button" id="deleteIngredient" class="deleteButton" value="Delete" onclick="deleteIngredient({{ingID}})"/></td>
                     </tr>
@@ -54,9 +54,13 @@
         <h1>New Ingredient</h1>
         <hr>
         <form id="addIngredient" action="/ingredients" method="post">
-            Name: <input type="text" id="nameField" placeholder="Ingredient Name">
-            Origin: <input type="text" id="originField" placeholder="Origin of Ingredient">
-            <input type="submit" id="newRow" class="newRowbutton" value="Submit">Submit</button>
+            Name: <input type="text" id="nameField" name="name" placeholder="Ingredient Name">
+            Origin: <select name="origin">
+                    {{#each farms}}
+                    <option value="{{farmID}}">{{name}}</option>
+                    {{/each}}
+                </select><br>
+            <input type="submit" id="newRow" class="newRowbutton" value="Submit"></button>
         </form>
       </div>
 

@@ -1,0 +1,34 @@
+<html>
+    <header>
+      <!-- The <i> tag below includes the bullhorn icon from Font Awesome -->
+      <a href="index.html"><h1 class="site-title">Oakville's Chefs</h1></a>
+
+      <nav class="navbar">
+        <ul class="navlist">
+          <li class="navitem navlink"><a href="index.html">Home</a></li>
+          <li class="navitem navlink active"><a href="/chefs">Chefs</a></li>
+          <li class="navitem navlink"><a href="/dishes">Dishes</a></li>
+          <li class="navitem navlink"><a href="/ingredients">Ingredients</a></li>
+          <li class="navitem navlink"><a href="/farms">Farms</a></li>
+        </ul>
+      </nav>
+    </header>
+
+    <main>
+      <div>
+          <h1>Edit Chef</h1>
+          <hr>
+          <form id="update-chef" action="/chefs" method="post">
+              First Name: <input type="text" id="fnField1" name="fname" value="{{chef.fname}}">
+              Last Name: <input type="text" id="lnField1" name="lname" value="{{chef.lname}}">
+              Dish: <select name="dish">
+                      {{#each dishes}}
+                      <option value="{{dishID}}">{{name}}</option>
+                      {{/each}}
+                  </select><br>
+          </form>
+          <button type="button" id="modifyRow" class="newRowbutton" onclick="updateChef({{chef.id}})">Submit</button>
+          <script defer>selectDish({{chef.dish}});</script>
+      </div>
+    </main>
+</html>

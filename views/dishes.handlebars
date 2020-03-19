@@ -59,10 +59,17 @@
       <h1>New Dish</h1>
       <hr>
       <form id="addDish" action="/dishes" method="post">
-          Name: <input type="text" id="nameField" placeholder="Dish Name">
-          Cost: <input type="text" id="costField" placeholder="Dish Cost">
-          Description: <input type="text" id="descriptionField" placeholder="Description of Dish">
-          <input type="submit" id="newRow" class="newRowbutton" value="Submit">Submit</button>
+          Name: <input type="text" id="nameField" name="name" placeholder="Dish Name">
+          Cost: <input type="text" id="costField" name="cost" placeholder="Dish Cost">
+          Description: <input type="text" id="descriptionField" name="description" placeholder="Description of Dish">
+          Ingredient: <select name="ingredients">
+                  {{#each ingredients}}
+                  <option value="{{ingID}}">{{name}}</option>
+                  {{/each}}
+              </select><br>
+          Quantity: <input type="text" name="quantity" placeholder="Quantity of Ingredient">
+          Unit: <input type="text" name="unit" placeholder="Unit of Measurement">
+          <input type="submit" id="newRow" class="newRowbutton" value="Submit"></button>
       </form>
     </div>
 
@@ -80,17 +87,15 @@
         Description: <input type="text" id="descriptionField" value="{{dish.description}}">
       </form>
       <button type="button" id="modifyRow" class="newRowbutton" onclick="updateDish({{dish.id}})">Submit</button>
-      <script defer>selectDish({{dish.dish}});</script>
     </div>
   </div>
 
-  <div id="ingredientsModal" class="modal" style="display: block;">
+  <div id="ingredientsModal" class="modal">
       <div class="modal-content">
         <span class="close" onclick="hideIngredientsModal()">&times;</span>
-        <h1>This will be populated with a list of the dish's ingredients from the Ingredients_In_Dishes table in database.</h1>
-        {{#each ingredients}}
+        {{#each ingredientslist}}
         <ul>
-          <li>{{ingredients.name}}</li>
+          <li>{{ingredientslist.name}}</li>
         </ul>
         {{/each}}
       </div>

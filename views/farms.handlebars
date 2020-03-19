@@ -6,10 +6,10 @@
     <nav class="navbar">
       <ul class="navlist">
         <li class="navitem navlink"><a href="index.html">Home</a></li>
-        <li class="navitem navlink"><a href="chefs.html">Chefs</a></li>
-        <li class="navitem navlink"><a href="dishes.html">Dishes</a></li>
-        <li class="navitem navlink"><a href="ingredients.html">Ingredients</a></li>
-        <li class="navitem navlink active"><a href="farms.html">Farms</a></li>
+        <li class="navitem navlink"><a href="/chefs">Chefs</a></li>
+        <li class="navitem navlink"><a href="/dishes">Dishes</a></li>
+        <li class="navitem navlink"><a href="/ingredients">Ingredients</a></li>
+        <li class="navitem navlink active"><a href="/farms">Farms</a></li>
       </ul>
     </nav>
   </header>
@@ -54,9 +54,9 @@
       <h1>New Farm</h1>
       <hr>
       <form id="addFarm" action="/farms" method="post">
-        Name: <input type="text" id="nameField" placeholder="Farm Name">
-        Location: <input type="text" id="locationField" placeholder="Farm Location">
-          <input type="submit" id="newRow" class="newRowbutton" value="Submit">Submit</button>
+        Name: <input type="text" id="nameField" name="name" placeholder="Farm Name">
+        Location: <input type="text" id="locationField" name="location" placeholder="Farm Location">
+          <input type="submit" id="newRow" class="newRowbutton" value="Submit"></button>
       </form>
     </div>
 

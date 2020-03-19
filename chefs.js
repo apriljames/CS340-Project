@@ -90,7 +90,7 @@ module.exports = function(){
         router.get('/:id', function(req, res){
             callbackCount = 0;
             var context = {};
-            context.jsscripts = ["selecteddish.js", "updatechef.js"];
+            context.jsscripts = ["deletechef.js","searchchefs.js","selecteddish.js","addchef.js","updatechef.js"];
             var mysql = req.app.get('mysql');
             getChef(res, mysql, context, req.params.id, complete);
             function complete(){
@@ -128,7 +128,7 @@ module.exports = function(){
             var mysql = req.app.get('mysql');
             console.log(req.body)
             console.log(req.params.id)
-            var sql = "UPDATE Chefs SET fName=?, lName=?, dish=? WHERE chefID=?";
+            var sql = "UPDATE Chefs SET fName = ?, lName = ?, dish = ? WHERE chefID = ?";
             var inserts = [req.body.fname, req.body.lname, req.body.dish, req.params.id];
             sql = mysql.pool.query(sql,inserts,function(error, results, fields){
                 if(error){

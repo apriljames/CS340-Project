@@ -15,7 +15,7 @@ module.exports = function(){
 
     function getFarmsWithNameLike(req, res, mysql, context, complete) {
           //sanitize the input as well as include the % character
-           var query = "SELECT Farms.farmID as id, name, location FROM Farms WHERE Farms.name LIKE " + mysql.pool.escape(req.params.s + '%');
+           var query = "SELECT Farms.farmID, name, location FROM Farms WHERE Farms.name LIKE " + mysql.pool.escape(req.params.s + '%');
           console.log(query)
 
           mysql.pool.query(query, function(error, results, fields){
@@ -44,7 +44,7 @@ module.exports = function(){
     router.get('/', function(req, res){
         var callbackCount = 0;
         var context = {};
-        //context.jsscripts = ["deleteperson.js","filterpeople.js","searchpeople.js"];
+        context.jsscripts = ["deletefarm.js","searchfarms.js","addfarm.js","updatefarm.js"];
         var mysql = req.app.get('mysql');
         getFarms(res, mysql, context, complete);
         function complete(){
@@ -60,7 +60,7 @@ module.exports = function(){
         router.get('/search/:s', function(req, res){
             var callbackCount = 0;
             var context = {};
-            //context.jsscripts = ["deleteperson.js","filterpeople.js","searchpeople.js"];
+            context.jsscripts = ["deletefarm.js","searchfarms.js","addfarm.js","updatefarm.js"];
             var mysql = req.app.get('mysql');
             getFarmsWithNameLike(req, res, mysql, context, complete);
             function complete(){

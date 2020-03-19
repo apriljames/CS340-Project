@@ -3,19 +3,30 @@ module.exports = function(){
     var router = express.Router();
 
     function getIngredients(res, mysql, context, complete){
-        mysql.pool.query("SELECT ingID, name, origin FROM Ingredients", function(error, results, fields){
+        mysql.pool.query("SELECT ingID, Ingredients.name, Farms.name as farmname FROM Ingredients INNER JOIN Farms on Ingredients.origin = Farms.farmID", function(error, results, fields){
             if(error){
                 res.write(JSON.stringify(error));
                 res.end();
             }
-            context.ingredients  = results;
+            context.ingredients = results;
+            complete();
+        });
+    }
+
+    function getFarms(res, mysql, context, complete){
+        mysql.pool.query("SELECT farmID, name FROM Farms", function(error, results, fields){
+            if(error){
+                res.write(JSON.stringify(error));
+                res.end();
+            }
+            context.farms  = results;
             complete();
         });
     }
 
     function getIngredientsWithNameLike(req, res, mysql, context, complete) {
           //sanitize the input as well as include the % character
-           var query = "SELECT Ingredients.ingID as id, name, origin FROM Ingredients WHERE Ingredients.name LIKE " + mysql.pool.escape(req.params.s + '%');
+           var query = "SELECT Ingredients.ingID, Ingredients.name, Farms.name as farmname FROM Ingredients INNER JOIN Farms on Ingredients.origin = Farms.farmID WHERE Ingredients.name LIKE " + mysql.pool.escape(req.params.s + '%');
           console.log(query)
 
           mysql.pool.query(query, function(error, results, fields){
@@ -44,12 +55,13 @@ module.exports = function(){
     router.get('/', function(req, res){
         var callbackCount = 0;
         var context = {};
-        context.jsscripts = ["deleteIngredient.js","searchingredients.js"];
+        context.jsscripts = ["deleteingredient.js","searchingredients.js","addingredient.js","updateingredients.js"];
         var mysql = req.app.get('mysql');
         getIngredients(res, mysql, context, complete);
+        getFarms(res, mysql, context, complete);
         function complete(){
             callbackCount++;
-            if(callbackCount >= 1){
+            if(callbackCount >= 2){
                 res.render('ingredients', context);
             }
 
@@ -60,7 +72,7 @@ module.exports = function(){
         router.get('/search/:s', function(req, res){
             var callbackCount = 0;
             var context = {};
-            context.jsscripts = ["deleteIngredient.js","searchingredients.js"];
+            context.jsscripts = ["deleteingredient.js","searchingredients.js"];
             var mysql = req.app.get('mysql');
             getIngredientsWithNameLike(req, res, mysql, context, complete);
             function complete(){
