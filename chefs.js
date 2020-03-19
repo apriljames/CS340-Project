@@ -26,8 +26,10 @@ module.exports = function(){
     }
 
     function getChefsWithNameLike(req, res, mysql, context, complete) {
+
+          context.jsscripts = ["deletechef.js","searchchefs.js","selecteddish.js","addchef.js","updatechef.js"];
           //sanitize the input as well as include the % character
-           var query = "SELECT chefs.chefID as id, fName, lName, dish FROM Chefs WHERE Chefs.fName LIKE " + mysql.pool.escape(req.params.s + '%');
+          var query = "SELECT chefID, fName, lName, dish FROM Chefs WHERE Chefs.fName LIKE " + mysql.pool.escape(req.params.s + '%');
           console.log(query)
 
           mysql.pool.query(query, function(error, results, fields){
@@ -39,15 +41,15 @@ module.exports = function(){
                 complete();
             });
         }
-    function getChef(res, mysql, context, id, complete){
-            var sql = "SELECT chefID as id, fName, lName, dish FROM Chefs WHERE chefID = ?";
-            var inserts = [id];
+    function getChef(res, mysql, context, fname, complete){
+            var sql = "SELECT chefID as id, fName, lName, dish FROM Chefs WHERE fName = ?";
+            var inserts = [fname];
             mysql.pool.query(sql, inserts, function(error, results, fields){
                 if(error){
                     res.write(JSON.stringify(error));
                     res.end();
                 }
-                context.chef = results[0];
+                context.chefs = results[0];
                 complete();
             });
         }
@@ -55,7 +57,7 @@ module.exports = function(){
     router.get('/', function(req, res){
         var callbackCount = 0;
         var context = {};
-        context.jsscripts = ["deletechef.js","searchchefs.js"];
+        context.jsscripts = ["deletechef.js","searchchefs.js","selecteddish.js","addchef.js","updatechef.js"];
         var mysql = req.app.get('mysql');
         getChefs(res, mysql, context, complete);
         getDishes(res, mysql, context, complete);
@@ -72,7 +74,7 @@ module.exports = function(){
         router.get('/search/:s', function(req, res){
             var callbackCount = 0;
             var context = {};
-            context.jsscripts = ["deletechef.js","searchchefs.js"];
+            context.jsscripts = ["searchchefs.js"];
             var mysql = req.app.get('mysql');
             getChefsWithNameLike(req, res, mysql, context, complete);
             function complete(){
@@ -93,7 +95,7 @@ module.exports = function(){
             getChef(res, mysql, context, req.params.id, complete);
             function complete(){
                 callbackCount++;
-                if(callbackCount >= 2){
+                if(callbackCount >= 1){
                    res.render('chefs', context);
                    var editModal = document.getElementById("editRowModal");
                    editModal.style.display = "block";
@@ -107,7 +109,7 @@ module.exports = function(){
         router.post('/', function(req, res){
             console.log(req.body)
             var mysql = req.app.get('mysql');
-            var sql = "INSERT INTO Chefs (fName, lName, dish) VALUES (?,?,?,?)";
+            var sql = "INSERT INTO Chefs (fName, lName, dish) VALUES (?,?,?)";
             var inserts = [req.body.fname, req.body.lname, req.body.dish];
             sql = mysql.pool.query(sql,inserts,function(error, results, fields){
                 if(error){

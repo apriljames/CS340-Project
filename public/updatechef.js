@@ -1,6 +1,6 @@
 function updateChef(id){
     $.ajax({
-        url: '/chefs',
+        url: '/chefs/' + id,
         type: 'PUT',
         data: $('#update-chef').serialize(),
         success: function(result){

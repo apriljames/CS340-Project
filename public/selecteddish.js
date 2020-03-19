@@ -1,3 +1,3 @@
 function selectDish(id){
-    $("#dishField1").value(id);
+    $("#dishField1").val(id);
 }
