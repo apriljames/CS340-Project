@@ -41,7 +41,7 @@
                         <td>{{name}}</td>
                         <td>{{cost}}</td>
                         <td>{{description}}</td>
-                        <td><input type="button" class="deleteButton" value="Ingredients" onclick="viewIngredients({{dishID}})"/></td>
+                        <td><a class="deleteButton" href="dishes/ingredientslist/{{dishID}}">Ingredients</a></td>
                         <td><a class="deleteButton" href="dishes/{{dishID}}">Edit</a></td>
                         <td><input type="button" id="deleteDish" class="deleteButton" value="Delete" onclick="deleteDish({{dishID}})"/></td>
                     </tr>
@@ -74,15 +74,4 @@
     </div>
 
   </div>
-
-  <div id="ingredientsModal" class="modal">
-      <div class="modal-content">
-        <span class="close" onclick="hideIngredientsModal()">&times;</span>
-        {{#each ingredientslist}}
-        <ul>
-          <li>{{ingredientslist.name}}</li>
-        </ul>
-        {{/each}}
-      </div>
-    </div>
 </html>

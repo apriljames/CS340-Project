@@ -25,7 +25,7 @@ module.exports = function(){
     }
 
     function getIngredientsForDish(res, mysql, id, context, complete){
-        var sql = "SELECT name FROM Ingredients_In_Dishes INNER JOIN Ingredients ON Ingredients_In_Dishes.ingID = Ingredients.ingID WHERE Ingredients_In_Dishes.dishID = ?"
+        var sql = "SELECT Ingredients.name as iname FROM Ingredients_In_Dishes INNER JOIN Ingredients ON Ingredients_In_Dishes.ingID = Ingredients.ingID INNER JOIN Dishes on Ingredients_In_Dishes.dishID = Dishes.dishID WHERE Ingredients_In_Dishes.dishID = ?"
         var inserts = [id];
         mysql.pool.query(sql, inserts, function(error, results, fields){
             if(error){
@@ -185,7 +185,7 @@ module.exports = function(){
         })
 
         /* Route to view a dishes ingredients */
-        router.get('/dishes/ingredients/:id', function(req, res){
+        router.get('/ingredientslist/:id', function(req, res){
             var callbackCount = 0;
             var context = {};
             context.jsscripts = ["deletedish.js","searchdishes.js","adddish.js","updatedish.js","viewingredients.js"];
@@ -194,9 +194,7 @@ module.exports = function(){
             function complete(){
                 callbackCount++;
                 if(callbackCount >= 1){
-                    res.render('dishes', context);
-                    var ingredientsModal = document.getElementById("ingredientsModal");
-                    ingredientsModal.style.display = "block";
+                    res.render('view-ingredients', context);
                 }
             }
         });
