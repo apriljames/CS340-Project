@@ -39,7 +39,7 @@
                         <td>{{fName}}</td>
                         <td>{{lName}}</td>
                         <td>{{dish}}</td>
-                        <td><input type="button" class="deleteButton" value="Edit" onclick="updateChef({{chefID}})"/></td>
+                        <td><a class="deleteButton" href="chefs/{{chefID}}">Edit</a></td>
                         <td><input type="button" id="deleteChef" class="deleteButton" value="Delete" onclick="deleteChef({{chefID}})"/></td>
                     </tr>
                 {{/each}}
@@ -68,20 +68,5 @@
         </form>
       </div>
 
-    </div>
-
-    <div id="editRowModal" class="modal">
-
-        <div class="modal-content">
-            <span class="close" onclick="hideEditModal()">&times;</span>
-            <h1>Edit Chef</h1>
-            <hr>
-            <form id="update-chef" action="/chefs" method="post">
-                First Name: <input type="text" id="fnField1" value="{{chef.fname}}">
-                Last Name: <input type="text" id="lnField1" value="{{chef.lname}}">
-            </form>
-            <button type="button" id="modifyRow" class="newRowbutton" onclick="updateChef({{chef.id}})">Submit</button>
-            <script defer>selectDish({{chef.dish}});</script>
-        </div>
     </div>
 </html>

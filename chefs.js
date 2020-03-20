@@ -41,9 +41,9 @@ module.exports = function(){
                 complete();
             });
         }
-    function getChef(res, mysql, context, fname, complete){
-            var sql = "SELECT chefID as id, fName, lName, dish FROM Chefs WHERE fName = ?";
-            var inserts = [fname];
+    function getChef(res, mysql, context, id, complete){
+            var sql = "SELECT chefID, fName, lName, dish FROM Chefs WHERE chefID = ?";
+            var inserts = [id];
             mysql.pool.query(sql, inserts, function(error, results, fields){
                 if(error){
                     res.write(JSON.stringify(error));
@@ -93,12 +93,11 @@ module.exports = function(){
             context.jsscripts = ["deletechef.js","searchchefs.js","selecteddish.js","addchef.js","updatechef.js"];
             var mysql = req.app.get('mysql');
             getChef(res, mysql, context, req.params.id, complete);
+            getDishes(res, mysql, context, complete);
             function complete(){
                 callbackCount++;
-                if(callbackCount >= 1){
-                   res.render('chefs', context);
-                   var editModal = document.getElementById("editRowModal");
-                   editModal.style.display = "block";
+                if(callbackCount >= 2){
+                   res.render('update-chef', context);
                 }
 
             }

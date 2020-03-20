@@ -1,15 +1,10 @@
 function updateIngredient(id){
     $.ajax({
-        url: '/ingredients',
+        url: '/ingredients/' + id,
         type: 'PUT',
         data: $('#update-ingredient').serialize(),
         success: function(result){
-            window.location.replace("./");
+            window.location.replace("../ingredients");
         }
     })
-};
-
-function hideEditModal(){
-  var modal = document.getElementById("editRowModal");
-  modal.style.display = "none";
 };

@@ -37,7 +37,7 @@
                         <td>{{ingID}}</td>
                         <td>{{name}}</td>
                         <td>{{farmname}}</td>
-                        <td><input type="button" class="deleteButton" value="Edit" onclick="updateIngredient({{ingID}})"/></td>
+                        <td><a class="deleteButton" href="ingredients/{{ingID}}">Edit</a></td>
                         <td><input type="button" id="deleteIngredient" class="deleteButton" value="Delete" onclick="deleteIngredient({{ingID}})"/></td>
                     </tr>
                 {{/each}}
@@ -62,21 +62,6 @@
                 </select><br>
             <input type="submit" id="newRow" class="newRowbutton" value="Submit"></button>
         </form>
-      </div>
-
-    </div>
-
-    <div id="editRowModal" class="modal">
-
-      <div class="modal-content" onclick="hideEditModal()">
-        <span class="close">&times;</span>
-        <h1>Edit Ingredient</h1>
-        <hr>
-        <form id="update-ingredient" action="/ingredients" method="post">
-            Name: <input type="text" id="nameField" value="{{ingredient.name}}">
-            Origin: <input type="text" id="originField" value="{{ingredient.origin}}">
-        </form>
-        <button type="button" id="modifyRow" class="newRowbutton">Submit</button>
       </div>
 
     </div>

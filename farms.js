@@ -29,7 +29,7 @@ module.exports = function(){
         }
 
     function getFarm(res, mysql, context, id, complete){
-            var sql = "SELECT farmID as id, name, location FROM Farms WHERE farmID = ?";
+            var sql = "SELECT farmID, name, location FROM Farms WHERE farmID = ?";
             var inserts = [id];
             mysql.pool.query(sql, inserts, function(error, results, fields){
                 if(error){
@@ -76,15 +76,13 @@ module.exports = function(){
         router.get('/:id', function(req, res){
             callbackCount = 0;
             var context = {};
-            //context.jsscripts = ["selectedplanet.js", "updateperson.js"];
+            context.jsscripts = ["updatefarm.js"];
             var mysql = req.app.get('mysql');
             getFarm(res, mysql, context, req.params.id, complete);
             function complete(){
                 callbackCount++;
                 if(callbackCount >= 1){
-                   res.render('farms', context);
-                   var editModal = document.getElementById("editRowModal");
-                   editModal.style.display = "block";
+                   res.render('update-farm', context);
                 }
 
             }

@@ -39,8 +39,8 @@ module.exports = function(){
             });
         }
 
-    function getingredient(res, mysql, context, id, complete){
-            var sql = "SELECT ingID as id, name, origin FROM Ingredients WHERE ingID = ?";
+    function getIngredient(res, mysql, context, id, complete){
+            var sql = "SELECT ingID, name, origin FROM Ingredients WHERE ingID = ?";
             var inserts = [id];
             mysql.pool.query(sql, inserts, function(error, results, fields){
                 if(error){
@@ -55,7 +55,7 @@ module.exports = function(){
     router.get('/', function(req, res){
         var callbackCount = 0;
         var context = {};
-        context.jsscripts = ["deleteingredient.js","searchingredients.js","addingredient.js","updateingredients.js"];
+        context.jsscripts = ["deleteingredient.js","searchingredients.js","addingredient.js","updateingredients.js","selectedfarm.js"];
         var mysql = req.app.get('mysql');
         getIngredients(res, mysql, context, complete);
         getFarms(res, mysql, context, complete);
@@ -88,15 +88,14 @@ module.exports = function(){
         router.get('/:id', function(req, res){
             callbackCount = 0;
             var context = {};
-            context.jsscripts = ["updateingredient.js"];
+            context.jsscripts = ["updateingredients.js","selectedfarm.js"];
             var mysql = req.app.get('mysql');
             getIngredient(res, mysql, context, req.params.id, complete);
+            getFarms(res, mysql, context, complete);
             function complete(){
                 callbackCount++;
-                if(callbackCount >= 1){
-                   res.render('ingredients', context);
-                   var editModal = document.getElementById("editRowModal");
-                   editModal.style.display = "block";
+                if(callbackCount >= 2){
+                   res.render('update-ingredient', context);
                 }
 
             }

@@ -1,15 +1,10 @@
 function updateDish(id){
     $.ajax({
-        url: '/dishes',
+        url: '/dishes/' + id,
         type: 'PUT',
         data: $('#update-dish').serialize(),
         success: function(result){
-            window.location.replace("./");
+            window.location.replace("../dishes");
         }
     })
-};
-
-function hideEditModal(){
-  var modal = document.getElementById("editRowModal");
-  modal.style.display = "none";
 };

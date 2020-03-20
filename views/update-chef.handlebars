@@ -15,20 +15,20 @@
     </header>
 
     <main>
-      <div>
-          <h1>Edit Chef</h1>
+      <div class ="ResultsTableDiv">
+          <h1>Edit {{chefs.fName}} {{chefs.lName}}</h1>
           <hr>
           <form id="update-chef" action="/chefs" method="post">
-              First Name: <input type="text" id="fnField1" name="fname" value="{{chef.fname}}">
-              Last Name: <input type="text" id="lnField1" name="lname" value="{{chef.lname}}">
-              Dish: <select name="dish">
+              First Name: <input type="text" id="fnField1" name="fname" value="{{chefs.fName}}">
+              Last Name: <input type="text" id="lnField1" name="lname" value="{{chefs.lName}}">
+              Dish: <select name="dish" id="dishField1">
                       {{#each dishes}}
                       <option value="{{dishID}}">{{name}}</option>
                       {{/each}}
                   </select><br>
           </form>
-          <button type="button" id="modifyRow" class="newRowbutton" onclick="updateChef({{chef.id}})">Submit</button>
-          <script defer>selectDish({{chef.dish}});</script>
+          <button type="button" id="modifyRow" class="newRowbutton" onclick="updateChef({{chefs.chefID}})">Submit</button>
+          <script defer>selectDish({{chefs.dish}});</script>
       </div>
     </main>
 </html>

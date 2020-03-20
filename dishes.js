@@ -53,7 +53,7 @@ module.exports = function(){
         }
 
     function getDish(res, mysql, context, id, complete){
-            var sql = "SELECT dishID as id, name, cost, description FROM Dishes WHERE dishID = ?";
+            var sql = "SELECT dishID, name, cost, description FROM Dishes WHERE dishID = ?";
             var inserts = [id];
             mysql.pool.query(sql, inserts, function(error, results, fields){
                 if(error){
@@ -101,15 +101,14 @@ module.exports = function(){
         router.get('/:id', function(req, res){
             callbackCount = 0;
             var context = {};
-            context.jsscripts = ["updatedish.js"];
+            context.jsscripts = ["updatedish.js", "viewingredients.js"];
             var mysql = req.app.get('mysql');
             getDish(res, mysql, context, req.params.id, complete);
+            getIngredients(res, mysql, context, complete);
             function complete(){
                 callbackCount++;
-                if(callbackCount >= 1){
-                   res.render('dishes', context);
-                   var editModal = document.getElementById("editRowModal");
-                   editModal.style.display = "block";
+                if(callbackCount >= 2){
+                   res.render('update-dish', context);
                 }
 
             }
@@ -154,7 +153,7 @@ module.exports = function(){
             console.log(req.body)
             console.log(req.params.id)
             var sql = "UPDATE Dishes SET name=?, cost=?, description=? WHERE dishID=?"; // NEEDS ANOTHER QUERY TO UPDATE RELATIONSHIP TABLE
-            var inserts = [req.body.fname, req.body.lname, req.body.dish, req.params.id];
+            var inserts = [req.body.name, req.body.cost, req.body.description, req.params.id];
             sql = mysql.pool.query(sql,inserts,function(error, results, fields){
                 if(error){
                     console.log(error)

@@ -37,7 +37,7 @@
                       <td>{{farmID}}</td>
                       <td>{{name}}</td>
                       <td>{{location}}</td>
-                      <td><input type="button" class="deleteButton" value="Edit" onclick="updateFarm({{farmID}})"/></td>
+                      <td><a class="deleteButton" href="farms/{{farmID}}">Edit</a></td>
                       <td><input type="button" id="deleteFarm" class="deleteButton" value="Delete" onclick="deleteFarm({{farmID}})"/></td>
                   </tr>
               {{/each}}
@@ -58,21 +58,6 @@
         Location: <input type="text" id="locationField" name="location" placeholder="Farm Location">
           <input type="submit" id="newRow" class="newRowbutton" value="Submit"></button>
       </form>
-    </div>
-
-  </div>
-
-  <div id="editRowModal" class="modal">
-
-    <div class="modal-content">
-      <span class="close" onclick="hideModal()">&times;</span>
-      <h1>Edit Farm</h1>
-      <hr>
-      <form id="update-farm" action="/farms" method="post">
-          Name: <input type="text" id="fnField1" value="{{farm.name}}">
-          Location: <input type="text" id="lnField1" value="{{farm.location}}">
-      </form>
-      <button type="button" id="modifyRow" class="newRowbutton" onclick="updateFarm({{farm.id}})">Submit</button>
     </div>
 
   </div>

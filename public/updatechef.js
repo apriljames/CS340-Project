@@ -4,12 +4,7 @@ function updateChef(id){
         type: 'PUT',
         data: $('#update-chef').serialize(),
         success: function(result){
-            window.location.replace("./");
+            window.location.replace("../chefs");
         }
     })
-};
-
-function hideEditModal(){
-  var modal = document.getElementById("editRowModal");
-  modal.style.display = "none";
 };

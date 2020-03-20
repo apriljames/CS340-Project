@@ -1,15 +1,10 @@
 function updateFarm(id){
     $.ajax({
-        url: '/farms',
+        url: '/farms/' + id,
         type: 'PUT',
         data: $('#update-farm').serialize(),
         success: function(result){
-            window.location.replace("./");
+            window.location.replace("../farms");
         }
     })
-};
-
-function hideEditModal(){
-  var modal = document.getElementById("editRowModal");
-  modal.style.display = "none";
 };
