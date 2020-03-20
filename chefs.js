@@ -14,7 +14,7 @@ module.exports = function(){
     }
 
     function getChefs(res, mysql, context, complete){
-        mysql.pool.query("SELECT chefID, fName, lName, dish FROM Chefs INNER JOIN Dishes ON dish = Dishes.dishID", function(error, results, fields){
+        mysql.pool.query("SELECT chefID, fName, lName, Dishes.name AS dish FROM Chefs INNER JOIN Dishes ON dish = Dishes.dishID", function(error, results, fields){
             if(error){
                 res.write(JSON.stringify(error));
                 res.end();
