@@ -1,0 +1,33 @@
+<html>
+    <header>
+      <!-- The <i> tag below includes the bullhorn icon from Font Awesome -->
+      <a href="index.html"><h1 class="site-title">Oakville's Chefs</h1></a>
+
+      <nav class="navbar">
+        <ul class="navlist">
+          <li class="navitem navlink"><a href="index.html">Home</a></li>
+          <li class="navitem navlink"><a href="/chefs">Chefs</a></li>
+          <li class="navitem navlink"><a href="/dishes">Dishes</a></li>
+          <li class="navitem navlink active"><a href="/ingredients">Ingredients</a></li>
+          <li class="navitem navlink"><a href="/farms">Farms</a></li>
+        </ul>
+      </nav>
+    </header>
+
+    <main>
+      <div class ="ResultsTableDiv">
+          <h1>Edit {{ingredients.name}}</h1>
+          <hr>
+          <form id="update-ingredient" action="/ingredients" method="post">
+              Name: <input type="text" id="nameField" name="name" value="{{ingredients.name}}">
+              Origin: <select name="origin" id="farmField1">
+                      {{#each farms}}
+                      <option value="{{farmID}}">{{name}}</option>
+                      {{/each}}
+                  </select><br>
+          </form>
+          <button type="button" id="modifyRow" class="newRowbutton" onclick="updateIngredient({{ingredients.ingID}})">Submit</button>
+          <script defer>selectFarm({{ingredients.origin}});</script>
+      </div>
+    </main>
+</html>

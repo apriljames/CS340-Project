@@ -1,0 +1,69 @@
+<html>
+    <header>
+      <!-- The <i> tag below includes the bullhorn icon from Font Awesome -->
+      <a href="index.html"><h1 class="site-title">Oakville's Chefs</h1></a>
+
+      <nav class="navbar">
+        <ul class="navlist">
+          <li class="navitem navlink"><a href="index.html">Home</a></li>
+          <li class="navitem navlink"><a href="/chefs">Chefs</a></li>
+          <li class="navitem navlink"><a href="/dishes">Dishes</a></li>
+          <li class="navitem navlink active"><a href="/ingredients">Ingredients</a></li>
+          <li class="navitem navlink"><a href="/farms">Farms</a></li>
+        </ul>
+      </nav>
+    </header>
+
+    <main>
+
+      <div class ="ResultsTableDiv">
+        <h1>Ingredients</</h1>
+        <hr>
+        <form class="search">
+          <input type="text" placeholder="Search.." name="search" id="name_search_string">
+          <button type="button" value="Search" onclick="searchIngredientsByName()"><i class="fa fa-search"></i></button>
+        </form>
+        <table id="ingredientsTable">
+            <thead>
+              <th>ID</th>
+              <th>Name</th>
+              <th>Origin</th>
+              <th>Edit</th>
+              <th>Delete</th>
+            </thead>
+            <tbody>
+                {{#each ingredients}}
+                    <tr>
+                        <td>{{ingID}}</td>
+                        <td>{{name}}</td>
+                        <td>{{farmname}}</td>
+                        <td><a class="deleteButton" href="ingredients/{{ingID}}">Edit</a></td>
+                        <td><input type="button" id="deleteIngredient" class="deleteButton" value="Delete" onclick="deleteIngredient({{ingID}})"/></td>
+                    </tr>
+                {{/each}}
+            </tbody>
+        </table>
+        <button type="button" id="newIngredient" class="newRowbutton" onclick="popupIngredient()">New Ingredient</button>
+      </div>
+    </main>
+
+    <div id="newRowModal" class="modal">
+
+      <div class="modal-content">
+        <span class="close" onclick="hideModal()">&times;</span>
+        <h1>New Ingredient</h1>
+        <hr>
+        <form id="addIngredient" action="/ingredients" method="post">
+            Name: <input type="text" id="nameField" name="name" placeholder="Ingredient Name">
+            Origin: <select name="origin">
+                    {{#each farms}}
+                    <option value="{{farmID}}">{{name}}</option>
+                    {{/each}}
+                </select><br>
+            <input type="submit" id="newRow" class="newRowbutton" value="Submit"></button>
+        </form>
+      </div>
+
+    </div>
+
+</html>

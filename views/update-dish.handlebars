@@ -1,0 +1,36 @@
+<html>
+    <header>
+      <!-- The <i> tag below includes the bullhorn icon from Font Awesome -->
+      <a href="index.html"><h1 class="site-title">Oakville's Chefs</h1></a>
+
+      <nav class="navbar">
+        <ul class="navlist">
+          <li class="navitem navlink"><a href="index.html">Home</a></li>
+          <li class="navitem navlink"><a href="/chefs">Chefs</a></li>
+          <li class="navitem navlink active"><a href="/dishes">Dishes</a></li>
+          <li class="navitem navlink"><a href="/ingredients">Ingredients</a></li>
+          <li class="navitem navlink"><a href="/farms">Farms</a></li>
+        </ul>
+      </nav>
+    </header>
+
+    <main>
+      <div class ="ResultsTableDiv">
+          <h1>Edit {{dishes.name}}</h1>
+          <hr>
+          <form id="update-dish" action="/chefs" method="post">
+              Name: <input type="text" id="nameField" name="name" value="{{dishes.name}}">
+              Cost: <input type="text" id="costField" name="cost" value="{{dishes.cost}}">
+              Description: <input type="text" id="descriptionField" name="description" value="{{dishes.description}}">
+              Ingredient: <select name="ingredients">
+                      {{#each ingredients}}
+                      <option value="{{ingID}}">{{name}}</option>
+                      {{/each}}
+                  </select><br>
+              Quantity: <input type="text" name="quantity" name="quantity" value="{{dishes.quantity}}">
+              Unit: <input type="text" name="unit" name="unit" value="{{dishes.unit}}">
+          </form>
+          <button type="button" id="modifyRow" class="newRowbutton" onclick="updateDish({{dishes.dishID}})">Submit</button>
+      </div>
+    </main>
+</html>

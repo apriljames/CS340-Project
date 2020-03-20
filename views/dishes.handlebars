@@ -1,0 +1,77 @@
+<html>
+  <header>
+    <!-- The <i> tag below includes the bullhorn icon from Font Awesome -->
+    <a href="index.html"><h1 class="site-title">Oakville's Chefs</h1></a>
+
+    <nav class="navbar">
+      <ul class="navlist">
+        <li class="navitem navlink"><a href="index.html">Home</a></li>
+        <li class="navitem navlink"><a href="/chefs">Chefs</a></li>
+        <li class="navitem navlink active"><a href="/dishes">Dishes</a></li>
+        <li class="navitem navlink"><a href="/ingredients">Ingredients</a></li>
+        <li class="navitem navlink"><a href="/farms">Farms</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main>
+
+    <div class ="ResultsTableDiv">
+      <h1>Dishes</</h1>
+      <hr>
+      <form class="search">
+        <input type="text" placeholder="Search.." name="search" id="first_name_search_string">
+        <button type="button" value="Search" onclick="searchDishesByFirstName()"><i class="fa fa-search"></i></button>
+      </form>
+      <table id="dishesTable">
+          <tr>
+            <thead>
+              <th>ID</th>
+              <th>Name</th>
+              <th>Cost</th>
+              <th>Description</th>
+              <th>Ingredients</th>
+              <th>Edit</th>
+              <th>Delete</th>
+            </thead>
+            <tbody>
+                {{#each dishes}}
+                    <tr>
+                        <td>{{dishID}}</td>
+                        <td>{{name}}</td>
+                        <td>{{cost}}</td>
+                        <td>{{description}}</td>
+                        <td><a class="deleteButton" href="dishes/ingredientslist/{{dishID}}">Ingredients</a></td>
+                        <td><a class="deleteButton" href="dishes/{{dishID}}">Edit</a></td>
+                        <td><input type="button" id="deleteDish" class="deleteButton" value="Delete" onclick="deleteDish({{dishID}})"/></td>
+                    </tr>
+                {{/each}}
+            </tbody>
+      </table>
+      <button type="button" id="newDish" class="newRowbutton" onclick="popupDish()">New Dish</button>
+    </div>
+  </main>
+
+  <div id="newRowModal" class="modal">
+
+    <div class="modal-content">
+      <span class="close" onclick="hideModal()">&times;</span>
+      <h1>New Dish</h1>
+      <hr>
+      <form id="addDish" action="/dishes" method="post">
+          Name: <input type="text" id="nameField" name="name" placeholder="Dish Name">
+          Cost: <input type="text" id="costField" name="cost" placeholder="Dish Cost">
+          Description: <input type="text" id="descriptionField" name="description" placeholder="Description of Dish">
+          Ingredient: <select name="ingredients">
+                  {{#each ingredients}}
+                  <option value="{{ingID}}">{{name}}</option>
+                  {{/each}}
+              </select><br>
+          Quantity: <input type="text" name="quantity" placeholder="Quantity of Ingredient">
+          Unit: <input type="text" name="unit" placeholder="Unit of Measurement">
+          <input type="submit" id="newRow" class="newRowbutton" value="Submit"></button>
+      </form>
+    </div>
+
+  </div>
+</html>

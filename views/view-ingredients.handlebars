@@ -1,0 +1,30 @@
+<html>
+  <header>
+    <!-- The <i> tag below includes the bullhorn icon from Font Awesome -->
+    <a href="index.html"><h1 class="site-title">Oakville's Chefs</h1></a>
+
+    <nav class="navbar">
+      <ul class="navlist">
+        <li class="navitem navlink"><a href="index.html">Home</a></li>
+        <li class="navitem navlink"><a href="/chefs">Chefs</a></li>
+        <li class="navitem navlink"><a href="/dishes">Dishes</a></li>
+        <li class="navitem navlink"><a href="/ingredients">Ingredients</a></li>
+        <li class="navitem navlink"><a href="/farms">Farms</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main>
+
+    <div class ="ResultsTableDiv">
+      <h1>Ingredients List</</h1>
+      <hr>
+      {{#each ingredientslist}}
+      <ul>
+        <li>{{iname}}</li>
+      </ul>
+      {{/each}}
+      <a class="deleteButton" href="../../dishes">Back</a>
+    </div>
+  </main>
+</html>

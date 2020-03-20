@@ -1,0 +1,28 @@
+<html>
+    <header>
+      <!-- The <i> tag below includes the bullhorn icon from Font Awesome -->
+      <a href="index.html"><h1 class="site-title">Oakville's Chefs</h1></a>
+
+      <nav class="navbar">
+        <ul class="navlist">
+          <li class="navitem navlink"><a href="index.html">Home</a></li>
+          <li class="navitem navlink"><a href="/chefs">Chefs</a></li>
+          <li class="navitem navlink"><a href="/dishes">Dishes</a></li>
+          <li class="navitem navlink"><a href="/ingredients">Ingredients</a></li>
+          <li class="navitem navlink active"><a href="/farms">Farms</a></li>
+        </ul>
+      </nav>
+    </header>
+
+    <main>
+      <div class ="ResultsTableDiv">
+          <h1>Edit {{farms.name}}</h1>
+          <hr>
+          <form id="update-farm" action="/farms" method="post">
+              Name: <input type="text" id="fnField1" name="name" value="{{farms.name}}">
+              Location: <input type="text" id="lnField1" name="location" value="{{farms.location}}">
+          </form>
+          <button type="button" id="modifyRow" class="newRowbutton" onclick="updateFarm({{farms.farmID}})">Submit</button>
+      </div>
+    </main>
+</html>
